@@ -11,7 +11,8 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.DEFAULT)
 public class UnitTest {
 
-    private void configurationOfTypesAbilitys(){
+    @Test
+    public void configurationOfPokemons() throws CreationException{
         Type electric = new Type("Electric");
         Type water = new Type("Water");
         Type rock = new Type("Rock");
@@ -29,31 +30,6 @@ public class UnitTest {
         Ability pickup = new Ability("Pickup");
         Ability damp = new Ability("Damp");
         Ability overgrow = new Ability("Overgrow");
-
-        CRUD.addTypes(electric,water,rock,ground,normal,fire,grass,poison);
-        CRUD.addAbilities(electricity,torrent,runAway,rockHead,blaze,pickup,damp,overgrow);
-    }
-
-    @Test
-    public void configurationOfPokemons() throws CreationException{
-        this.configurationOfTypesAbilitys();
-        Type electric = CRUD.findType("Electric");
-        Type water = CRUD.findType("Water");
-        Type rock = CRUD.findType("Rock");
-        Type ground = CRUD.findType("Ground");
-        Type normal = CRUD.findType("Normal");
-        Type fire = CRUD.findType("Fire");
-        Type grass = CRUD.findType("Grass");
-        Type poison = CRUD.findType("Poison");
-
-        Ability electricity = CRUD.findAbility("Electricity");
-        Ability torrent = CRUD.findAbility("Torrent");
-        Ability runAway = CRUD.findAbility("Run Away");
-        Ability rockHead = CRUD.findAbility("Rock Head");
-        Ability blaze = CRUD.findAbility("Blaze");
-        Ability pickup = CRUD.findAbility("Pickup");
-        Ability damp = CRUD.findAbility("Damp");
-        Ability overgrow = CRUD.findAbility("Overgrow");
 
         //configuration of evolutions
         Evolution pikachu = new Evolution.Builder().addName("Pikachu").addRequireLevel(16).addTypes(electric).build();
