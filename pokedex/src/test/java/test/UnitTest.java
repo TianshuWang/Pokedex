@@ -65,53 +65,55 @@ public class UnitTest {
         List<Pokemon> pokemonList = CRUD.findAllPokemons();
         Assert.assertEquals(10,pokemonList.size());
 
-        Pokemon p1 = pokemonList.get(0);
-        Assert.assertEquals("Pichu",p1.getName());
-        Pokemon p5 = pokemonList.get(5);
-        Assert.assertEquals("Cubone",p5.getName());
-        Pokemon p9 = pokemonList.get(9);
-        Assert.assertEquals("Meowth",p9.getName());
+        Pokemon pichu = pokemonList.get(0);
+        Assert.assertEquals("Pichu",pichu.getName());
+        Pokemon geodude = pokemonList.get(3);
+        Assert.assertEquals("Geodude",geodude.getName());
+        Pokemon cubone = pokemonList.get(5);
+        Assert.assertEquals("Cubone",cubone.getName());
+        Pokemon meowth = pokemonList.get(9);
+        Assert.assertEquals("Meowth",meowth.getName());
     }
 
     @Test
     public void readNameTypesLevelOfCharmander(){
-        Pokemon pokemon = CRUD.findPokemon("Charmander");
+        Pokemon charmander = CRUD.findPokemon("Charmander");
 
-        Assert.assertEquals("Charmander",pokemon.getName());
-        Assert.assertEquals(7,pokemon.getLevel());
+        Assert.assertEquals("Charmander",charmander.getName());
+        Assert.assertEquals(7,charmander.getLevel());
 
-        Assert.assertEquals(1,pokemon.getTypes().size());
-        Type type = pokemon.getTypes().get(0);
-        Assert.assertEquals("Fire",type.getName());
+        Assert.assertEquals(1,charmander.getTypes().size());
+        Type fire = charmander.getTypes().get(0);
+        Assert.assertEquals("Fire",fire.getName());
     }
 
     @Test
-    public void readAbilitiesEvolutionsOfPichu(){
-        Pokemon pokemon = CRUD.findPokemon("Pichu");
-        Assert.assertEquals("Pichu",pokemon.getName());
+    public void readAbilitiesEvolutionsOfSquirtle(){
+        Pokemon squirtle = CRUD.findPokemon("Squirtle");
+        Assert.assertEquals("Squirtle",squirtle.getName());
 
-        Assert.assertEquals(1,pokemon.getAbilities().size());
-        Ability ability = pokemon.getAbilities().get(0);
-        Assert.assertEquals("Electricity",ability.getName());
+        Assert.assertEquals(1,squirtle.getAbilities().size());
+        Ability torrent = squirtle.getAbilities().get(0);
+        Assert.assertEquals("Torrent",torrent.getName());
 
-        Assert.assertEquals(1,pokemon.getEvolutions().size());
-        Evolution evolution = pokemon.getEvolutions().get(0);
-        Assert.assertEquals("Pikachu",evolution.getName());
+        Assert.assertEquals(1,squirtle.getEvolutions().size());
+        Evolution wartortle = squirtle.getEvolutions().get(0);
+        Assert.assertEquals("Wartortle",wartortle.getName());
     }
 
     @Test
     public void readEvolutionsInformationOfPichu(){
-        Pokemon pokemon = CRUD.findPokemon("Pichu");
-        Assert.assertEquals("Pichu",pokemon.getName());
+        Pokemon pichu = CRUD.findPokemon("Pichu");
+        Assert.assertEquals("Pichu",pichu.getName());
 
-        Assert.assertEquals(1,pokemon.getEvolutions().size());
-        Evolution evolution = pokemon.getEvolutions().get(0);
-        Assert.assertEquals("Pikachu",evolution.getName());
-        Assert.assertEquals(16,evolution.getRequiredLevel());
+        Assert.assertEquals(1,pichu.getEvolutions().size());
+        Evolution pikachu = pichu.getEvolutions().get(0);
+        Assert.assertEquals("Pikachu",pikachu.getName());
+        Assert.assertEquals(16,pikachu.getRequiredLevel());
 
-        Assert.assertEquals(1,evolution.getTypes().size());
-        Type type = evolution.getTypes().get(0);
-        Assert.assertEquals("Electric",type.getName());
+        Assert.assertEquals(1,pikachu.getTypes().size());
+        Type electric = pikachu.getTypes().get(0);
+        Assert.assertEquals("Electric",electric.getName());
     }
 
     @Test
@@ -119,49 +121,88 @@ public class UnitTest {
         Type normal = CRUD.findType("Normal");
         Ability runAway = CRUD.findAbility("Run Away");
 
+        //operation
         Pokemon rattata = new Pokemon.Builder().addName("Rattata").addLevel(12).addTypes(normal).addAbilities(runAway).build();
         CRUD.addPokemons(rattata);
 
-        Pokemon pokemon = CRUD.findPokemon("Rattata");
-        Assert.assertEquals("Rattata",pokemon.getName());
-        Assert.assertEquals(12,pokemon.getLevel());
+        //after
+        Pokemon rattataa = CRUD.findPokemon("Rattata");
+        Assert.assertEquals("Rattata",rattataa.getName());
+        Assert.assertEquals(12,rattataa.getLevel());
+    }
+
+    @Test()
+    public void updatePichuName(){
+        //before
+        Pokemon pichu = CRUD.findPokemon("Pichu");
+        Assert.assertEquals("Pichu",pichu.getName());
+
+        //operation
+        CRUD.updatePokemonName("Pichu","PPPPichu");
+
+        //after
+        Pokemon ppppichu = CRUD.findPokemon("PPPPichu");
+        Assert.assertEquals("PPPPichu",ppppichu.getName());
     }
 
     @Test
-    public void updateNamePPPPichuToPichu(){
-        CRUD.updatePokemonName("Pichu","PPPPichu");
+    public void updateCharmanderLevel(){
+        //before
+        Pokemon charmander = CRUD.findPokemon("Charmander");
+        Assert.assertEquals(7,charmander.getLevel());
 
-        Pokemon pokemon = CRUD.findPokemon("PPPPichu");
-        Assert.assertEquals("PPPPichu",pokemon.getName());
+        //operation
+        CRUD.updatePokemonLevel(charmander.getName(),11);
+
+        //after
+        Pokemon charmanderr = CRUD.findPokemon("Charmander");
+        Assert.assertEquals(11,charmanderr.getLevel());
     }
 
     @Test
     public void addTypeCatToMeowth(){
-        Pokemon pokemon = CRUD.findPokemon("Meowth");
-        Assert.assertEquals(1,pokemon.getTypes().size());
+        //before
+        Pokemon meowth = CRUD.findPokemon("Meowth");
+        Assert.assertEquals(1,meowth.getTypes().size());
 
+        //operation
         CRUD.addPokemonType("Meowth",new Type("Cat"));
-        Assert.assertEquals(2,pokemon.getTypes().size());
-        Assert.assertEquals("Cat",pokemon.getTypes().get(1).getName());
+
+        //after
+        Pokemon meowthh = CRUD.findPokemon("Meowth");
+        Type cat = meowthh.getTypes().get(1);
+        Assert.assertEquals("Cat",cat.getName());
     }
 
     @Test
     public void addEvolutionGlaceonToEevee() throws CreationException {
-        Pokemon pokemon = CRUD.findPokemon("Eevee");
-        Assert.assertEquals(3,pokemon.getEvolutions().size());
+        //before
+        Pokemon eevee = CRUD.findPokemon("Eevee");
+        Assert.assertEquals(3,eevee.getEvolutions().size());
 
+        //operation
         Evolution glaceon = new Evolution.Builder().addName("Glaceon").addRequireLevel(10).addTypes(new Type("Ice")).build();
         CRUD.addPokemonEvolution("Eevee",glaceon);
-        Assert.assertEquals(4,pokemon.getEvolutions().size());
-        Assert.assertEquals("Glaceon",pokemon.getEvolutions().get(3).getName());
+
+        //after
+        Pokemon eeveee = CRUD.findPokemon("Eevee");
+        Evolution glaceonn = eeveee.getEvolutions().get(3);
+        Assert.assertEquals("Glaceon",glaceonn.getName());
     }
 
     @Test
     public void removeTypeRockOfOnix(){
-        Pokemon pokemon = CRUD.findPokemon("Onix");
-        Assert.assertEquals("Rock",pokemon.getTypes().get(0).getName());
+        //before
+        Pokemon onix = CRUD.findPokemon("Onix");
+        Type rock = onix.getTypes().get(0);
+        Assert.assertEquals("Rock",rock.getName());
 
+        //operation
         CRUD.removePokemonType("Onix","Rock");
-        Assert.assertEquals("Ground",pokemon.getTypes().get(0).getName());
+
+        //after
+        Pokemon onixx = CRUD.findPokemon("Onix");
+        Type ground = onixx.getTypes().get(0);
+        Assert.assertEquals("Ground",ground.getName());
     }
 }

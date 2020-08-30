@@ -18,8 +18,8 @@ public class Evolution extends PersistentEntity{
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Type> types;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pokemon_id")
+    @ManyToOne
+    @JoinColumn(name = "pokemon_id", referencedColumnName = "id")
     private Pokemon pokemon;
 
     private Evolution(){

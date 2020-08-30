@@ -1,15 +1,13 @@
 package test;
 
-import entities.Evolution;
-import entities.Pokemon;
-import entities.Type;
+import entities.*;
 import manager.CRUD;
 
 import java.util.List;
 
 public class MainTest {
     public static void main(String[] args) {
-        //list all the pokemons in database
+        //list all the pokemons in the database
         List<Pokemon> pokemons = CRUD.findAllPokemons();
         for(Pokemon pokemon:pokemons){
             System.out.println("Name:"+pokemon.getName());

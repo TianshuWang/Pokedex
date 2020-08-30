@@ -2,9 +2,7 @@ package entities;
 
 import entities.exception.CreationException;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "pokemon")
@@ -116,6 +114,10 @@ public class Pokemon extends PersistentEntity{
 
     public void removeType(Type type){
         this.types.remove(type);
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public void addEvolutions(Evolution ...evolutions) {

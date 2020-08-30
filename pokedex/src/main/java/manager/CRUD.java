@@ -1,8 +1,7 @@
 package manager;
 
 import entities.*;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class CRUD {
 
@@ -11,18 +10,16 @@ public class CRUD {
         addObjects(Pokemon.class,pokemons);
     }
 
-    public static void addTypes(Type ...types){
-        addObjects(Type.class,types);
-    }
-
-    public static void addAbilities(Ability ...abilities){
-        addObjects(Ability.class,abilities);
-    }
-
     //modification
-    public static void updatePokemonName(String name,String newName){
+    public static void updatePokemonName(String name, String newName){
         Pokemon pokemon = (Pokemon) find(Pokemon.class,name);
         pokemon.setName(newName);
+        update(pokemon);
+    }
+
+    public static void updatePokemonLevel(String name, Integer newLevel) {
+        Pokemon pokemon = (Pokemon) find(Pokemon.class, name);
+        pokemon.setLevel(newLevel);
         update(pokemon);
     }
 
